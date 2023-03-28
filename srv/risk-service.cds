@@ -1,12 +1,38 @@
 using { riskmanagement as schema } from '../db/schema';
 
-@path: 'service/risk'
-service RiskService @(impl: './risk-service.js') {
 
-    entity Risks as projection on schema.Risks;
-    annotate Risks with @odata.draft.enabled;
-    
-    entity Mitigations as projection on schema.Mitigations;
-    annotate Mitigations with @odata.draft.enabled;
+@impl : './risk-service.js'
+@path : 'service/risk'
+service RiskService
+{
+    @odata.draft.enabled
+    entity Risks @(restrict: [
+        {
+            grant : ['READ'],
+            to : [ 'RiskViewer' ]
+        },
+        {
+            grant :  ['*'],
+            to : [ 'RiskManager' ]
+        }
+    ]) as
+        projection on schema.Risks;
+
+    @odata.draft.enabled
+    entity Mitigations @(restrict: [
+        {
+            grant : ['READ'],
+            to : [ 'RiskViewer' ]
+        },
+        {
+            grant :  ['*'],
+            to : [ 'RiskManager' ]
+        }
+    ]) as
+        projection on schema.Mitigations;
+
+    @readonly
+    entity BusinessPartners as 
+        projection on schema.BusinessPartners;
     
 }

@@ -27,6 +27,7 @@ annotate service.Risks with @(UI : {
         {Value : ID},
         {Value : to_Mitigation_ID },
         {Value : Owner },
+        {Value: to_BP_BusinessPartner },
         {   
             Value : Priority  ,
             Criticality : criticality 
@@ -118,6 +119,9 @@ annotate service.Risks with @(UI : {
             },
             {
                 Value : Owner,
+            },
+            {
+                Value : to_BP_BusinessPartner,
             },
             {
                 Value : Description,

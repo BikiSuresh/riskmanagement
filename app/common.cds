@@ -15,6 +15,11 @@ annotate schema.Risks with {
                         Text : to_Mitigation.Description,
                         TextArrangement : #TextOnly,
                     });
+    to_BP @(title : 'Business Partner',
+            Common : {
+                Text: to_BP.FirstName,
+                TextArrangement : #TextOnly,
+                 } );
     Priority      @title: 'Priority';
     Impact        @(title: 'Impact');
 };
@@ -49,6 +54,30 @@ annotate schema.Risks with {
                     }
                 ]
             }
+        }
+    );
+    to_BP @(
+        Common: {
+            ValueList : {
+                $Type : 'Common.ValueListType',
+                Label : 'Business Partner',
+                CollectionPath : 'BusinessPartners',
+                Parameters : [
+                    {
+                        $Type : 'Common.ValueListParameterInOut',
+                        LocalDataProperty: to_BP_BusinessPartner,
+                        ValueListProperty: 'BusinessPartner'
+                    },
+                    {
+                        $Type: 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty: 'LastName'
+                    },
+                    {
+                        $Type : 'Common.ValueListParameterDisplayOnly',
+                        ValueListProperty: 'FirstName'
+                    }
+                ]
+            },
         }
     );
 } ;
